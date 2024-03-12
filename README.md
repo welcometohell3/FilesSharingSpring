@@ -1,1 +1,1 @@
-File sharing system based on Spring boot.
+File sharing system based on Spring Boot + MySQL.
