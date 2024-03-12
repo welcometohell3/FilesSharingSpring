@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" th:href="@{/templates/styles.css}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        div {
+            margin: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${userName != null}">
+    <p>Личный кабинет пользователя <span th:text="${userName}"></span>!</p>
+
+    <ul>
+        <li><a th:href="@{/profile}">Мой профиль</a></li>
+        <li><a th:href="@{/catalog}">Мой каталог</a></li>
+        <li><a th:href="@{/share}">Поделиться файлами</a></li>
+        <li><a th:href="@{/logout}">Выход</a></li>
+    </ul>
+</div>
+
+<div th:unless="${userName != null}">
+    <p>Пожалуйста, <a th:href="@{/templates/login}">войдите</a> для доступа к личному кабинету.</p>
+</div>
+</body>
+</html>

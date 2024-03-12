@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Каталог файлов</title>
+    <link th:href="@{/templates/styles.css}" th:rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        form {
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin-right: 10px;
+        }
+
+        .file-container {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .file-item span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .file-actions {
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .no-files-message {
+            color: #6c757d;
+        }
+
+        .main-menu-link {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body th:if="${userName != null}">
+
+<form id="fileUploadForm" th:action="@{/files/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput">
+    <input type="submit" value="Upload File">
+</form>
+
+<h2 th:text="'Файлы пользователя ' + ${userName}"></h2>
+
+<div class="file-container" th:each="file : ${files}">
+    <div class="file-item">
+        <span th:text="${file.getName()}"></span>
+        <div class="file-actions">
+            <form th:action="@{'/files/download/' + ${file.getId()}}" method="get" style="display:inline;">
+                <input type="submit" value="Скачать файл">
+            </form>
+            <form th:action="@{'/files/delete/' + ${file.getId()}}" method="post" style="display:inline;">
+                <input type="submit" value="Удалить файл">
+            </form>
+        </div>
+    </div>
+</div>
+
+<p class="no-files-message" th:if="${files == null or #lists.size(files) == 0}">No files</p>
+<a class="main-menu-link" th:href="@{/main}">main menu</a>
+</body>
+</html>

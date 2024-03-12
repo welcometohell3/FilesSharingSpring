@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Каталог файлов</title>
+    <link th:href="@{/templates/styles.css}" th:rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        div {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        form {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        select {
+            padding: 5px;
+            width: 150px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body th:if="${userName != null}">
+
+<h2 th:text="Поделиться"></h2>
+
+<div th:each="user : ${allUsers}" th:unless="${user.id == currentUser.id}">
+    <div>
+        <span th:text="${user.getName()}"></span>
+        <form th:action="@{'/files/share'}" method="post" style="display:inline;">
+            <select th:name="selectedFile">
+                <option th:each="file : ${currentUser.files}" th:value="${file.id}" th:text="${file.name}"></option>
+            </select>
+            <input type="hidden" th:name="recipient" th:value="${user.getName()}">
+            <input type="submit" value="Отправить файл">
+        </form>
+    </div>
+</div>
+
+<a th:href="@{/main}">main menu</a>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Авторизация</title>
+  <link th:rel="stylesheet" th:href="@{/templates/styles.css}">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      margin: 100px;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    form {
+      margin: 20px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    input {
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 200px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .err {
+      color: #dc3545;
+      margin-top: 10px;
+    }
+
+    p {
+      margin-top: 20px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<h2>Авторизация</h2>
+<form action="#" th:action="@{/login}" method="post">
+  <label>Логин:</label>
+  <input type="text" name="userName" required><br>
+  <label>Пароль:</label>
+  <input type="password" name="password" required><br>
+  <input type="submit" value="Login">
+</form>
+
+<div th:if="${error}" th:class="err">
+  Неверный логин или пароль
+</div>
+
+<p>Нет аккаунта? <a th:href="@{/register}">Регистрация</a></p>
+</body>
+</html>
